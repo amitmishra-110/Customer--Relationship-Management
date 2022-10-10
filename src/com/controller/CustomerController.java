@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springdemo.dao.CustomerDAO;
 import com.springdemo.entity.Customer;
@@ -67,4 +68,19 @@ public class CustomerController
 		//return "list-customers"; good for viewing page 
 		return "redirect:/customer/list"; // good for redirecting after operation
 	}
+	
+	@GetMapping("/showFormForUpdate")
+	public String showFormFormUpdate(@RequestParam("customerId") int id, Model theModel)
+	{
+		//get customer from service
+		Customer theCustomer=customerService.getCustomer(id);
+		
+		//set the customer to the model attribute for prepoulating the form
+		theModel.addAttribute("customer",theCustomer);
+		
+		//sending to the form
+		return "customer-form";
+	}
+	
+	
 }
