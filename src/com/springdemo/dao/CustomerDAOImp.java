@@ -66,8 +66,21 @@ public class CustomerDAOImp  implements  CustomerDAO
     	
     	// retreiving customer from database based on primary key id
     	Customer customer=session.get(Customer.class,id);
+    	
     
     	return customer;
+    }
+    
+    @Override
+    public void deleteCustomer(int id) {
+  
+    	Session session=sessionFactory.getCurrentSession();
+    	
+    	//Use of HQL for deleting the customer by ID
+    	Query query=session.createQuery("Delete from Customer where id=:theCustomerId");
+    	query.setParameter("theCustomerId",id);
+    	//works for updates and delete
+    	query.executeUpdate();
     }
 
 }
